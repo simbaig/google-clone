@@ -6,12 +6,12 @@ const baseUrl = "https://google-search3.p.rapidapi.com/api/v1";
 export const ResultContextProvider = ({ children }) => {
 	const [results, setResults] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
-	const [searchTerm, setSearchTerm] = useState("");
+	const [searchTerm, setSearchTerm] = useState("Elon Musk");
 
-	const getResult = async (type) => {
+	const getResults = async (type) => {
 		setIsLoading(true);
 
-		const response = fetch(`${baseUrl}${type}`, {
+		const res = await fetch(`${baseUrl}${type}`, {
 			method: "GET",
 			headers: {
 				"X-User-Agent": "desktop",
@@ -21,7 +21,15 @@ export const ResultContextProvider = ({ children }) => {
 			},
 		});
 
-		const data = await response.json();
+		const data = await res.json();
+
+		if (type.includes("/news")) {
+			setResults(data.entries);
+		} else if (type.includes("images")) {
+			setResults(data.image_result);
+		} else {
+			setResults(data.results);
+		}
 
 		setResults(data);
 		setIsLoading(false);
@@ -29,7 +37,7 @@ export const ResultContextProvider = ({ children }) => {
 
 	return (
 		<ResultContext.Provider
-			value={{ getResult, results, searchTerm, setSearchTerm, isLoading }}
+			value={{ getResults, results, searchTerm, setSearchTerm, isLoading }}
 		>
 			{children}
 		</ResultContext.Provider>
