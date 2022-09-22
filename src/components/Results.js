@@ -25,7 +25,7 @@ const Results = () => {
 		case "/search":
 			return (
 				<div className="flex flex-wrap justify-between space-y-6 sm:px-56">
-					{results?.map(({ link, title }, index) => (
+					{results.map(({ link, title }, index) => (
 						<div key={index} className="md:w-2/5 w-full">
 							<a href={link} target="_blank" rel="noreferrer">
 								<p className="text-sm">
@@ -43,7 +43,7 @@ const Results = () => {
 		case "/images":
 			return (
 				<div className="flex flex-wrap justify-center items-center">
-					{results?.map(({ image, link: { href, title } }, index) => (
+					{results.map(({ image, link: { href, title } }, index) => (
 						<a
 							className="sm:p-3 p-5"
 							href={href}
@@ -59,7 +59,7 @@ const Results = () => {
 		case "/news":
 			return (
 				<div className="flex flex-wrap justify-between space-y-6 sm:px-56 items-center">
-					{results?.map(({ links, id, source, title }) => (
+					{results.map(({ links, id, source, title }) => (
 						<div key={id} className="md:w-2/5 w-full">
 							<a
 								href={links?.[0].href}
@@ -83,7 +83,7 @@ const Results = () => {
 		case "/videos":
 			return (
 				<div className="flex flex-wrap">
-					{results?.map((video, index) => (
+					{results.map((video, index) => (
 						<div key={index} className="p-2">
 							<ReactPlayer
 								url={video.additional_links?.[0].href}
